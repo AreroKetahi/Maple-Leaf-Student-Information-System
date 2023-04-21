@@ -33,6 +33,6 @@
 ##### `string student_dorm`
 学生宿舍门牌号
 #### 使用本类的接口
-- 
+- [[GET] /student](#[get]-student)
 
 
