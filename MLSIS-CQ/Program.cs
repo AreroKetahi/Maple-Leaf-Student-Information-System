@@ -55,7 +55,7 @@ namespace MapleLeafStudentInformationDatabase
             });
             app.MapGet("/student/{id}", async (string id, SIDB db) =>
             {
-                return await db.students.FindAsync(id) is Student member ? Results.Ok(member) : Results.NotFound();
+                return await db.students.FindAsync(id) is Student student ? Results.Ok(student) : Results.NotFound();
             });
             app.MapPost("/student", async (Student student, SIDB db) =>
             {
@@ -63,15 +63,58 @@ namespace MapleLeafStudentInformationDatabase
                 await db.SaveChangesAsync();
                 return Results.Created($"/student/{student.student_id}", student);
             });
-            app.MapPut("/student{id}", async (string id, Student student, SIDB db) =>
+            app.MapPut("/student/{id}", async (string id, Student student, SIDB db) =>
             {
                 var select = await db.students.FindAsync(id);
                 if (select is null) return Results.NotFound();
                 select.student_name = student.student_name;
-                select.student_dorm = student.student_dorm;
-                select.student_class = student.student_class;
                 await db.SaveChangesAsync();
-                return Results.Ok();
+                return Results.Ok(select);
+            });
+            app.MapDelete("/student/{id}", async (string id, SIDB db) =>
+            {
+                if (await db.students.FindAsync(id) is Student studnet)
+                {
+                    db.students.Remove(studnet);
+                    await db.SaveChangesAsync();
+                    return Results.Ok();
+                }
+                else { return Results.NotFound(); }
+            });
+
+            app.MapGet("/counselor", async (SIDB db) =>
+            {
+                var LookUp = await db.counselors.ToListAsync();
+                return Results.Ok(LookUp);
+            });
+            app.MapGet("/counselor/{name}", async (string name, SIDB db) =>
+            {
+                return await db.counselors.FindAsync(name) is Counselor counselor ? Results.Ok(counselor) : Results.NotFound();
+            });
+            app.MapPost("/counselor", async (Counselor counselor, SIDB db) =>
+            {
+                db.counselors.Add(counselor);
+                await db.SaveChangesAsync();
+                return Results.Created($"/student/{counselor.counselor_name}", counselor);
+            });
+            app.MapPut("/counselor/{name}", async (string name, Counselor counselor, SIDB db) =>
+            {
+                var select = await db.counselors.FindAsync(name);
+                if (select is null) return Results.NotFound();
+                select.classes = counselor.classes;
+                select.counselor_type = counselor.counselor_type;
+                await db.SaveChangesAsync();
+                return Results.Ok(select);
+            });
+            app.MapDelete("/counselor/{name}", async (string name, SIDB db) =>
+            {
+                if (await db.counselors.FindAsync(name) is Counselor counselor)
+                {
+                    db.counselors.Remove(counselor);
+                    await db.SaveChangesAsync();
+                    return Results.Ok();
+                }
+                else { return Results.NotFound(); }
             });
 
             app.Run();
