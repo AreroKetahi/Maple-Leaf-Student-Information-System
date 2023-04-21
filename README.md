@@ -240,7 +240,11 @@ HTTP类型：application/json
 
 #### 使用本类的接口
 
-- 
+- [[GET] /student](#get-counselr)
+- [[GET] /student/{id}](#get-counselorid)
+- [[POST] /student](#post-counselor)
+- [[PUT] /student/{id}]($put-counselorid)
+- [[DELETE] /student/{id}](#delete-counselorid)
 
 ### Class
 
@@ -260,13 +264,6 @@ HTTP类型：application/json
 
 本行政班级内的学生列表，使用学生的ID进行编录
 
-#### 使用本类的接口
-
-- [[GET] /student](#get-counselr)
-- [[GET] /student/{id}](#get-counselorid)
-- [[POST] /student](#post-counselor)
-- [[PUT] /student/{id}]($put-counselorid)
-- [[DELETE] /student/{id}](#delete-counselorid)
 
 ## 枚举
 
