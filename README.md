@@ -136,7 +136,7 @@ HTTP类型：application/json
 
 ### [POST] /counselor
 
-返回类型：[Counselor](#counselor)#student)
+返回类型：[Counselor](#counselor)
 
 返回示例：Created(201)
 
@@ -150,13 +150,13 @@ HTTP类型：application/json
 
 #### Body
 
-提供类型：[[Counselor](#counselor)](#student)
+提供类型：[Counselor](#counselor)
 
 HTTP类型：application/json
 
 ### [PUT] /student/{id}
 
-返回类型：[Counselor](#counselor)#student)
+返回类型：[Counselor](#counselor)
 
 **注意：counselor_name条目不可修改**
 
